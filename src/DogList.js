@@ -1,36 +1,18 @@
 import React from "react";
 import { useState } from "react";
 import { getAllDogs } from "./helpers";
+import DogDetails from "./DogDetails";
 
-function DogList() {
-
-  const [dogList, setDogList] = useState(
-    {
-      isLoading: true,
-      dogs: null
-    }
-  );
-
-  async function getDogList() {
-    const dogs = await getAllDogs();
-
-    setDogList({
-      isLoading: false,
-      dogs: dogs
-    });
-  }
-
-  if (dogList.isLoading) {
-    getDogList();
-  }
-
-
-  console.log("dogList.dogs",dogList.dogs)
+function DogList({dogs}) {
 
 
   return (
-    <div>
-      {/* {dogList.dogs.map(dog=>dog.name)} */}
+    <div className>
+
+      {dogs.map(dog=>{
+       return <DogDetails dog={dog}/>
+      })}
+
     </div>
   );
 }

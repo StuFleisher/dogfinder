@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import DogList from "./DogList";
-import DogDetails from "./DogDetails";
-import { getAllDogs } from "./helpers";
+import DogDetailsPage from "./DogDetailsPage";
+
 
 /** Handles routing for the application
  *
@@ -13,11 +13,11 @@ import { getAllDogs } from "./helpers";
  *
  */
 
-function RouteList() {
+function RouteList({dogs}) {
   return (
     <Routes>
-      <Route element={<DogList />} path="/" />
-      <Route element={<DogDetails />} path="/dogs/:name" />
+      <Route element={<DogList dogs={dogs} />} path="/"  />
+      <Route element={<DogDetailsPage />} path="/dogs/:name" />
       <Route element={<Navigate to="/" />} path="*" />
     </Routes>
   );
