@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import RouteList from './RouteList';
 import Nav from './Nav';
-import {getAllDogs} from './helpers'
+import { getAllDogs } from './helpers';
 
 
-/** Renders the nav bar and loads the Route List
+/** Pulls a list of dogs from the server then uses that data to render
+ *  the nav bar and Route List
  *
  * State:none
  * Props:none
@@ -16,34 +17,34 @@ import {getAllDogs} from './helpers'
 
 function App() {
 
-  const [dogList, setDogList] = useState(
+  const [dogData, setDogData] = useState(
     {
       isLoading: true,
       dogs: null
     }
   );
 
-  async function getDogList() {
+  /** Pulls data from the server then updates the state */
+  async function getDogData() {
     const dogs = await getAllDogs();
 
-    setDogList({
+    setDogData({
       isLoading: false,
       dogs: dogs
     });
   }
 
-  if (dogList.isLoading) {
-    getDogList();
-    return <p>loading..</p>
+  if (dogData.isLoading) {
+    getDogData();
+    return <p>loading..</p>;
   }
 
-  console.log("dogList.dogs",dogList.dogs)
 
   return (
     <div className="App">
       <BrowserRouter>
-        <Nav dogs={dogList.dogs}/>
-        <RouteList dogs={dogList.dogs} />
+        <Nav dogs={dogData.dogs} />
+        <RouteList dogs={dogData.dogs} />
       </BrowserRouter>
     </div>
   );
